@@ -38,44 +38,52 @@ func getOperation(op int) string {
 	return ""
 }
 
+func readInt(prompt string) (int, error) {
+	fmt.Print(prompt)
+
+	var input string
+	if _, err := fmt.Scan(&input); err != nil {
+		return 0, err
+	}
+
+	// strconv.Atoi explicitly forces base-10, bypassing the octal/leading-zero trap
+	num, err := strconv.Atoi(input)
+	if err != nil {
+		return 0, errors.New("Invalid number format")
+	}
+
+	return num, nil
+}
+
 func Calculator() {
-	fmt.Println("Operator")
-	var a string
-	_, err := fmt.Scan(&a)
-	Operator, err := strconv.Atoi(a)
+	num1, err := readInt("Enter first number: ")
 	if err != nil {
-		fmt.Println("Error: ", err)
+		fmt.Println("Error:", err)
 		return
 	}
 
-	fmt.Println("Operand")
-	var b string
-	_, err = fmt.Scan(&b)
-	Operand, err := strconv.Atoi(b)
+	num2, err := readInt("Enter second number: ")
 	if err != nil {
-		fmt.Println("Error: ", err)
+		fmt.Println("Error:", err)
 		return
 	}
 
-	fmt.Println("Operation")
-	fmt.Println("1. Addition")
-	fmt.Println("2. Subtraction")
-	fmt.Println("3. Multiplication")
-	fmt.Println("4. Division")
-	var c string
-	_, err = fmt.Scan(&c)
+	fmt.Println("\nChoose an operation:")
+	fmt.Println("1. Addition\n2. Subtraction\n3. Multiplication\n4. Division")
+	op, err := readInt("Your choice (1-4): ")
 	if err != nil {
-		fmt.Println("Error: ", err)
-		return
-	}
-	Operation, err := strconv.Atoi(c)
-	res, err := runOperation(Operator, Operand, Operation)
-	if err != nil {
-		fmt.Println(err)
+		fmt.Println("Error:", err)
 		return
 	}
 
-	fmt.Printf("%d %s %d = %d\n", Operand, getOperation(Operation), Operator, res)
+	res, err := runOperation(num1, num2, op)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+
+	// Fixed the variable order here so the math matches the display
+	fmt.Printf("%d %s %d = %d\n", num1, getOperation(op), num2, res)
 
 }
 
