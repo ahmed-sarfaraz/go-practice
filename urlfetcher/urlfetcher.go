@@ -73,13 +73,12 @@ func main() {
 
 		}
 		_, err = dstFile.Write(html.html)
+		dstFile.Close()
 
 		if err != nil {
-			dstFile.Close()
 			fmt.Printf("Error writing %s: %v\n", html.filename, err)
 			continue
 		}
-		dstFile.Close()
 	}
 
 }
