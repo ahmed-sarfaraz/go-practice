@@ -70,8 +70,8 @@ func main() {
 		if err != nil {
 			fmt.Printf("Error Creating file %s with error: %v\n", html.filename, err)
 			continue
-
 		}
+
 		_, err = dstFile.Write(html.html)
 		dstFile.Close()
 
