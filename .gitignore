@@ -1,0 +1,78 @@
+# ---------------------------------------------------------------------------
+# Compiled binaries
+#
+# `go build` names its output after the directory it builds, so Go binaries
+# have no file extension. There is no safe wildcard for that: a bare pattern
+# like `server` would also match any directory called `server`. So each
+# `package main` directory in this repo gets an anchored line of its own.
+# ---------------------------------------------------------------------------
+/calculator/calculator
+/go_with_tests/helloworld/helloworld
+/http/htmldownload/htmldownload
+/http/htmlparalleldownload/htmlparalleldownload
+/http/server/server
+/tcpupperecho/tcpupperecho
+/urlfetcher/urlfetcher
+/userdata/userdata
+/writetcp/writetcp
+
+# A better habit for anything new: send the output to bin/ instead of leaving
+# it beside the source, and the next line covers you without further edits.
+#
+#     go build -o bin/thing ./thing
+#
+/bin/
+/dist/
+
+# Cross-compiled and cgo output, which at least has extensions to match on.
+*.exe
+*.dll
+*.so
+*.dylib
+
+# ---------------------------------------------------------------------------
+# Test and profiling output
+# ---------------------------------------------------------------------------
+
+# `go test -c` compiles a test binary rather than running it.
+*.test
+
+# Coverage and pprof profiles: go test -coverprofile=coverage.out
+*.out
+
+# ---------------------------------------------------------------------------
+# Editor and OS droppings
+# ---------------------------------------------------------------------------
+
+# macOS Finder
+.DS_Store
+
+# GoLand / IntelliJ
+.idea/
+
+# VS Code
+.vscode/
+
+# Vim
+*.swp
+*.swo
+*~
+
+# ---------------------------------------------------------------------------
+# Go workspace
+#
+# go.work stitches several local modules together and points at paths on one
+# machine, so it is normally kept local rather than shared. Delete these two
+# lines if you ever decide to commit a workspace on purpose.
+# ---------------------------------------------------------------------------
+go.work
+go.work.sum
+
+# ---------------------------------------------------------------------------
+# Deliberately NOT ignored:
+#
+#   go.mod, go.sum   Source. They pin the exact dependency versions and
+#                    checksums a clone needs to build what you built.
+#   vendor/          If you ever run `go mod vendor`, the convention is to
+#                    commit the result, not hide it.
+# ---------------------------------------------------------------------------
